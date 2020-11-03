@@ -1,6 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
+import { EmbeddedWebView } from 'news/App/components/EmbeddedWebView';
+
 
 const styles = StyleSheet.create({
   row: {
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
   },
   source: {
     color: '#3d3c41',
-    fontSize: 1,
+    fontSize: 14,
     fontWeight: '500',
     marginBottom: 3,
   },
@@ -43,25 +45,27 @@ const styles = StyleSheet.create({
   },
 });
 
-const openLink = url => {
-  Linking.canOpenURL(url).then(supported => {
-    if (!supported) return alert('Sorry! Something went wrong');
-
-    return Linking.openURL(url);
-  })
-}
-
-export const ArticleRow = ({ title, publishedAt, source, index, url }) => (
-  <TouchableOpacity onPress={() => openLink(url)}>
-    <View style={styles.row}>
-    <View style={styles.numberContainer}>
-      <Text style={styles.number}>{index + 1}</Text>
-    </View>
-    <View style={styles.content}>
-      <Text style={styles.source}>{source.name}</Text>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.publishedAt}>{formatDistanceStrict(new Date(publishedAt), new Date(), { addSuffix: true})}</Text>
-    </View> 
-  </View>
-  </TouchableOpacity>
-);
+export const ArticleRow = ({ title, publishedAt, source, index, url }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  return (
+    <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <Modal animationType="slide" transparent visible={modalVisible}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => setModalVisible(false)}
+        />
+        <EmbeddedWebView url={url}/>
+      </Modal>
+      <View style={styles.row}>
+        <View style={styles.numberContainer}>
+          <Text style={styles.number}>{index + 1}</Text>
+        </View>
+        <View style={styles.content}>
+          <Text style={styles.source}>{source.name}</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.publishedAt}>{formatDistanceStrict(new Date(publishedAt), new Date(), { addSuffix: true })}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
