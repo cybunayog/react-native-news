@@ -1,5 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "name": "news",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -8,11 +9,20 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link": "^1.2.14",
+    "apollo-link-rest": "^0.8.0-beta.0",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
+    "graphql": "^15.4.0",
+    "graphql-anywhere": "^4.2.7",
+    "graphql-tag": "^2.11.0",
+    "qs": "^6.9.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
+    "react-native-dotenv": "^2.4.2",
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {

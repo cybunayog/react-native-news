@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
+
 const styles = StyleSheet.create({
   headerText: {
     color: '#ff8d01',
