@@ -9,10 +9,11 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@apollo/client": "^3.2.5",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
-    "apollo-link-rest": "^0.8.0-beta.0",
+    "apollo-link-rest": "^0.7.3",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
     "graphql": "^15.4.0",
