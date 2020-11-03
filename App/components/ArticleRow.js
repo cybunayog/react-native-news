@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 
 const styles = StyleSheet.create({
@@ -43,10 +43,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export const ArticleRow = ({ title, publishedAt, source, index }) => (
-  <View style={styles.row}>
+const openLink = url => {
+  Linking.canOpenURL(url).then(supported => {
+    if (!supported) return alert('Sorry! Something went wrong');
+
+    return Linking.openURL(url);
+  })
+}
+
+export const ArticleRow = ({ title, publishedAt, source, index, url }) => (
+  <TouchableOpacity onPress={() => openLink(url)}>
+    <View style={styles.row}>
     <View style={styles.numberContainer}>
-      <Text style={styles.number}>{index}</Text>
+      <Text style={styles.number}>{index + 1}</Text>
     </View>
     <View style={styles.content}>
       <Text style={styles.source}>{source.name}</Text>
@@ -54,4 +63,5 @@ export const ArticleRow = ({ title, publishedAt, source, index }) => (
       <Text style={styles.publishedAt}>{formatDistanceStrict(new Date(publishedAt), new Date(), { addSuffix: true})}</Text>
     </View> 
   </View>
+  </TouchableOpacity>
 );
